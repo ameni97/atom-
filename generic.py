@@ -1,12 +1,31 @@
 from typing import Generic, TypeVar
-from atom.api import Atom, Float
 
-T = TypeVar("T")
 
-class A(Atom, Generic[T]):
-    t : T
+class Meta(type):
+  def __getitem__(cls,key):
+     return key
 
+T= TypeVar("T",  bound=object)
+
+class A(Generic[T], metaclass=Meta):
+  def __init__(self,  T) -> None:
+       self.T =T
 class B(A[float]):
   pass
 
-assert isinstance(B.t, Float)
+#Meta.__getitem__(A,  T)
+#a = A(T)
+#a.T=""  
+b = B(T)
+b.T = ""
+
+
+
+       # __getitem__(self, k: In) -> Out:
+      #return self._dct[k]
+
+
+
+  #A[int]
+
+
