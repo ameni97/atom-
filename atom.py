@@ -262,17 +262,19 @@ class AtomMeta(type):
     """
  
     
-    def __getitem__(self, key):
-        #t : Any 
-        class A:
-               def some_func(x: Type[T]) -> T:
-                return x
-                
+M= TypeVar("M",bound=object )
+key= TypeVar("key", bound=object)
+class A(Generic[M]) :
+     def __init__(self, dct: dict[key, M]) -> None:
+        self._dct =dct
+
+        def __getitem__(self, k: key) -> M:
+            return self._dct[k]
+
             
-        
-        return A[self, key]
-    __atom_members__: Mapping[str, Member]
-    __atom_specific_members__: FrozenSet[str]
+
+__atom_members__: Mapping[str, Member]
+__atom_specific_members__: FrozenSet[str]
 
     def __new__(  # noqa: C901
         meta,
